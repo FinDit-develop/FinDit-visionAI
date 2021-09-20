@@ -39,7 +39,12 @@ Image segmentation based on DL
 
 ### Model
 
-- Faster RCNN: CNN + RPN
+- **FCN (Fully Convolutional Network)**
+  - 기존 Classification용 CNN 모델(AlexNet, VGG 등)의 경우 물체가 어떤 class에 속하는지는 예측할 수 있지만 parameter의 개수와 차원을 줄이는 layer들을 가지고 있어서, 자세한 위치정보를 잃고 물체가 어디 존재하는지 예측할 수 없데 됨.
+  - FCN의 경우 fully connected 층을 1x1 convolution 층으로 바꿈
+  - 이미지의 크기와 상관 없이 segmentation map을 만들 수 있게 됨
+
+- ~~Faster RCNN: CNN + RPN~~
   - 정확하고, 인식률이 좋다.
   - 느리다. 애초에 실시간용으로 개발된 것이 아니기에.
 - YOLO(You Only Look Once)
@@ -53,6 +58,21 @@ Image segmentation based on DL
 
 
 ### Development  
+
+Clothes Segmentation은 이미지(영상 프레임) 내 의류의 위치를 픽셀 단위로 예측하는 과정이며, 이미지 내 각 픽셀에 대해 클래스를 예측하는 방향으로 진행된다.
+
+Clothes Segmentation을 크게 아래 3가지의 영역으로 분류해보자.
+
+- Semantic Segmentation : 같은 클래스를 갖는 물체들에게 객체 개념 없이 모두 같은 클래스로 인식 (e.g. top, trouser, ...)
+- Instance Segmentation : 같은 클래스를 갖는 물체들에게 객체 개념을 부여 (e.g. top1, top2, hat1, hat2, hat3, ...)
+- Panoptic Segmentation : Semantic Segmentation과 Instance Segmentation이 합쳐진 개념 (엄밀하게 조금 다름.) 으로, 두 가지 특성을 모두 갖는 분야
+
+이중 가장 기본이 되는 Semantic Segmentation부터 시도해본다.
+
+
+
+Semantic Segmentation은 FCN (Fully Convolutional Network)를 기준으로 DeepLab 계열 모델과 U-Net 계열 모델로 구분지을 수 있다.
+
 
 
 
