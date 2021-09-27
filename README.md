@@ -1,9 +1,9 @@
-# Moic Segmentation
+# FinDit - Vision AI
 Image segmentation based on DL
 
 
 
-### Data
+## Data
 
 > [K-fashion Dataset](https://aihub.or.kr/aidata/30755) from AI-Hub
 
@@ -13,7 +13,7 @@ Image segmentation based on DL
 
 
 
-### Features
+## Features
 
 |       대분류       |                          세부 속성                           |
 | :----------------: | :----------------------------------------------------------: |
@@ -37,14 +37,13 @@ Image segmentation based on DL
 
 
 
-### Model
+## Model
 
-- **FCN (Fully Convolutional Network)**
-  - 기존 Classification용 CNN 모델(AlexNet, VGG 등)의 경우 물체가 어떤 class에 속하는지는 예측할 수 있지만 parameter의 개수와 차원을 줄이는 layer들을 가지고 있어서, 자세한 위치정보를 잃고 물체가 어디 존재하는지 예측할 수 없데 됨.
-  - FCN의 경우 fully connected 층을 1x1 convolution 층으로 바꿈
-  - 이미지의 크기와 상관 없이 segmentation map을 만들 수 있게 됨
 
-- ~~Faster RCNN: CNN + RPN~~
+
+### Object Detection
+
+- Faster RCNN: CNN + RPN
   - 정확하고, 인식률이 좋다.
   - 느리다. 애초에 실시간용으로 개발된 것이 아니기에.
 - YOLO(You Only Look Once)
@@ -57,7 +56,27 @@ Image segmentation based on DL
 
 
 
-### Development  
+### Segmentation
+
+- **FCN (Fully Convolutional Network)**
+  - 기존 Classification용 CNN 모델(AlexNet, VGG 등)의 경우 물체가 어떤 class에 속하는지는 예측할 수 있지만 parameter의 개수와 차원을 줄이는 layer들을 가지고 있어서, 자세한 위치정보를 잃고 물체가 어디 존재하는지 예측할 수 없게 됨.
+  - FCN의 경우 fully connected 층을 1x1 convolution 층으로 바꿈
+  - 이미지의 크기와 상관 없이 segmentation map을 만들 수 있게 됨
+  - 하지만 Semantic segmentation
+- **Mask RCNN (Faster RCNN + 변형 FCN)** - Main Model
+  - RPN(Region Proposal Network)을 활용한 Faster RCNN Object Detection 모델과, 약간의 변형된 FCN으로 구성되어 있음
+
+- **YOLACT (You Only Look At CoefficienTs)**
+  - YOLACT의 네트워크는 ResNet101 + FPN 을 이용하여 RetinaNet에 기반한 구조
+  - 정확도 감소가 조금 있지만 속도 메리트가 더 크다고 함
+- **BlendMask**
+  - 논문 공부 필요
+
+
+
+
+
+## Development
 
 Clothes Segmentation은 이미지(영상 프레임) 내 의류의 위치를 픽셀 단위로 예측하는 과정이며, 이미지 내 각 픽셀에 대해 클래스를 예측하는 방향으로 진행된다.
 
